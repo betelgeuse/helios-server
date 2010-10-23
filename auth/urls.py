@@ -8,6 +8,7 @@ from django.conf.urls.defaults import *
 
 from views import *
 from auth_systems.password import password_login_view, password_forgotten_view
+from auth_systems.hanken import hanken_login_view
 from auth_systems.twitter import follow_view
 
 urlpatterns = patterns('',
@@ -23,6 +24,9 @@ urlpatterns = patterns('',
     # password auth
     (r'^password/login', password_login_view),
     (r'^password/forgot', password_forgotten_view),
+
+    # hanken
+    (r'^hanken/login', hanken_login_view),
 
     # twitter
     (r'^twitter/follow', follow_view),

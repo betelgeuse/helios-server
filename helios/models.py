@@ -466,17 +466,10 @@ class VoterFile(models.Model):
     
       num_voters += 1
       voter_id = voter[0]
-      name = voter_id
-      email = voter_id
-    
-      if len(voter) > 1:
-        email = voter[1]
-    
-      if len(voter) > 2:
-        name = voter[2]
+      name = voter[1]
     
       # create the user
-      user = User.update_or_create(user_type='password', user_id=voter_id, info = {'password': heliosutils.random_string(10), 'email': email, 'name': name})
+      user = User.update_or_create(user_type='hanken', user_id=voter_id, info = {'name': name, 'email': "s%s@petteriraty.eu" % voter_id})
       user.save()
     
       # does voter for this user already exist
@@ -485,7 +478,7 @@ class VoterFile(models.Model):
       # create the voter
       if not voter:
         voter_uuid = str(uuid.uuid4())
-        voter = Voter(uuid= voter_uuid, voter_type = 'password', voter_id = voter_id, name = name, election = election)
+        voter = Voter(uuid= voter_uuid, voter_type = 'hanken', voter_id = voter_id, name = name, election = election)
         voter_uuids.append(voter_uuid)
         voter.save()
 
