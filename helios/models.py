@@ -469,7 +469,7 @@ class VoterFile(models.Model):
       name = voter[1]
     
       # create the user
-      user = User.update_or_create(user_type='hanken', user_id=voter_id, info = {'name': name, 'email': "s%s@petteriraty.eu" % voter_id})
+      user = User.update_or_create(user_type='hanken', user_id=voter_id, info = {'name': name, 'email': "s%s@shh.fi" % voter_id})
       user.save()
     
       # does voter for this user already exist
