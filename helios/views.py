@@ -830,11 +830,11 @@ def combine_decryptions(request, election):
   election.combine_decryptions()
   election.save()
 
+  """
   # notify voters!
   extra_vars = {
     'election_url' : get_election_url(election)
     }
-  
   # full-length email
   tasks.voters_email.delay(election_id = election.id,
                            subject_template = 'email/result_subject.txt',
@@ -845,7 +845,7 @@ def combine_decryptions(request, election):
   tasks.voters_notify.delay(election_id = election.id,
                             notification_template = 'notification/result.txt',
                             extra_vars = extra_vars)
-  
+  """
   return HttpResponseRedirect(reverse(one_election_view, args=[election.uuid]))
 
 @election_admin(frozen=True)
