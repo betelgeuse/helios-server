@@ -472,15 +472,15 @@ def one_election_cast_confirm(request, election):
     cast_vote = CastVote(**cast_vote_params)
   else:
     cast_vote = None
-    
-  if request.method == "GET":
-    if voter:
-      past_votes = CastVote.get_by_voter(voter)
-      if len(past_votes) == 0:
-        past_votes = None
-    else:
-      past_votes = None
 
+  if voter:
+    past_votes = CastVote.get_by_voter(voter)
+    if len(past_votes) == 0:
+      past_votes = None
+  else:
+    past_votes = None
+
+  if request.method == "GET":
     if cast_vote:
       # check for issues
       issues = cast_vote.issues(election)
@@ -517,6 +517,10 @@ def one_election_cast_confirm(request, election):
       
   if request.method == "POST":
     check_csrf(request)
+
+    # Don't allow people to change their votes
+    if past_votes:
+      return HttpResponseRedirect(settings.URL_HOST)
     
     # voting has not started or has ended
     if (not election.voting_has_started()) or election.voting_has_stopped():
