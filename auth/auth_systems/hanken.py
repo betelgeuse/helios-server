@@ -42,7 +42,7 @@ def password_check(user, password):
   result = False;
   if response.status == httplib.OK:
     data = response.read()
-    match = re.search('s:[0-9]:"s([0-9]{6})";}', data)
+    match = re.search('s:[0-9]:"s([^"]+)";}', data)
     if match and match.group(1) == user.user_id:
       result = True
       logging.info('Good password for %s' % user.user_id)
